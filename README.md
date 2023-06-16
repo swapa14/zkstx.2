@@ -18,3 +18,18 @@ function getZkSyncTxCount(address) {
 const RPC_MAP = {
   "zks":"https://zksync2-mainnet.zksync.io"
 };
+
+method: "post",
+    payload: JSON.stringify({
+      "jsonrpc": "2.0",
+      "method": "eth_getBalance",
+      "params": [walletAddress, "latest"],
+      "id": 1
+    }),
+    contentType: "application/json",
+    muteHttpExceptions: true
+  });
+  let result = JSON.parse(response.getContentText());
+  let balance = result.result;
+  return parseInt(balance, 16) / 10 ** 18;
+}
